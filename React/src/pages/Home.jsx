@@ -120,13 +120,9 @@ const Home = () => {
                                        note_id: note_id,
                                        id: folder.id
                                    }))}
-                                   onFolderDelete={(note_id) => dispatch(fetchDeleteFolderNoteData({
-                                       note_id: note_id
-                                   }))}
-                                   onNoteDelete={(id) => {
-                                       dispatch(fetchRemoveNoteData({id: id}));
-                                       navigate("/");
-                                   }} onNoteClick={(url) => navigate(url)}/>
+                                   onFolderDelete={(note_id) => dispatch(fetchDeleteFolderNoteData({note_id: note_id}))}
+                                   onNoteDelete={(id) => dispatch(fetchRemoveNoteData({id: id})).then(() => navigate("/"))}
+                                   onNoteClick={(url) => navigate(url)}/>
                     </div>
                 </div>
 
