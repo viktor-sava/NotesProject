@@ -1,7 +1,10 @@
 package ua.lpnu.notes.controller;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -13,6 +16,8 @@ import ua.lpnu.notes.exception.RefreshTokenNotValidException;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorController extends ResponseEntityExceptionHandler  {
@@ -27,6 +32,16 @@ public class ErrorController extends ResponseEntityExceptionHandler  {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ExceptionResponse handleException(Exception e) {
         return new ExceptionResponse(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ExceptionResponse handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        String message = e.getAllErrors()
+                .stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining("\n"));
+        return new ExceptionResponse(message, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(AccessTokenNotValidException.class)

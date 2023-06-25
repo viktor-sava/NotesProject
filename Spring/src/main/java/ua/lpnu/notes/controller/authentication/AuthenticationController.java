@@ -1,5 +1,6 @@
 package ua.lpnu.notes.controller.authentication;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("login")
-    public KeyPair login(@RequestBody Credentials credentials) {
+    public KeyPair login(@RequestBody @Valid Credentials credentials) {
         return authenticationService.login(credentials.email(), credentials.password());
     }
 
@@ -37,7 +38,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("register")
-    public KeyPair register(@RequestBody UserInformation userInformation) {
+    public KeyPair register(@RequestBody @Valid UserInformation userInformation) {
         return authenticationService.register(userInformation);
     }
 
