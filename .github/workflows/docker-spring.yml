@@ -2,16 +2,16 @@ name: Create and publish a Docker image for spring
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
+    paths-ignore:
+      - 'React/**'
     branches: [ "main" ]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: spring
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-react-spring:
+  build-and-push-spring-image:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -32,7 +32,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/spring
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4

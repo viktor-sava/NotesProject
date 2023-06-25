@@ -2,13 +2,13 @@ name: Create and publish a Docker image for React
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
+    paths-ignore:
+      - 'Spring/**'
     branches: [ "main" ]
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: react
+  IMAGE_NAME: ${{ github.repository }}
 
 jobs:
   build-and-push-react-image:
@@ -32,7 +32,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/react
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
