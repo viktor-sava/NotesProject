@@ -1,0 +1,23 @@
+token:
+  access:
+    duration: 3600
+    secret: ${ACCESS_SECRET_KEY}
+  refresh:
+    duration: 604800
+    secret: ${REFRESH_SECRET_KEY}
+
+spring:
+  datasource:
+    username: ${POSTGRES_USERNAME}
+    password: ${POSTGRES_PASSWORD}
+    url: ${POSTGRES_URL}
+  jpa:
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO}
+  main:
+    allow-circular-references: true
+  mvc:
+    throw-exception-if-no-handler-found: true
+logging:
+  level:
+    root: error
