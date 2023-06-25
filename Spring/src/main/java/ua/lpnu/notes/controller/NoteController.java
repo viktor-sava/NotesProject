@@ -1,5 +1,6 @@
 package ua.lpnu.notes.controller;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -30,7 +31,7 @@ public class NoteController {
 
     @PostMapping("{id}/folder")
     @PreAuthorize("@noteService.isOwner(authentication, #id)")
-    public NoteDto createFolder(@RequestBody FolderDto folderDto, @PathVariable Long id) {
+    public NoteDto createFolder(@RequestBody @Valid FolderDto folderDto, @PathVariable Long id) {
         return mapper(noteService.createFolder(id, folderDto.name()));
     }
 
@@ -50,7 +51,7 @@ public class NoteController {
 
     @PutMapping
     @PreAuthorize("@noteService.isOwner(authentication, #noteDto.id())")
-    public NoteDto changeNote(@RequestBody NoteDto noteDto) {
+    public NoteDto changeNote(@RequestBody @Valid NoteDto noteDto) {
         Note note = noteService.changeNote(noteDto.id(), noteDto.content(), noteDto.status());
         return mapper(note);
     }
@@ -69,7 +70,7 @@ public class NoteController {
 
     @PostMapping("{id}/tags")
     @PreAuthorize("@noteService.isOwner(authentication, #id)")
-    public TagDto addTagToNote(@PathVariable("id") Long id, @RequestBody TagDto tagDto) {
+    public TagDto addTagToNote(@PathVariable("id") Long id, @RequestBody @Valid TagDto tagDto) {
         return tagService.createTag(id, tagDto.value());
     }
 

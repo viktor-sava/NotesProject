@@ -79,6 +79,7 @@ const ListNotes = (props) => {
             );
         })}
         <input value={newFolderContent}
+               maxLength="30"
                ref={inputRef}
                onChange={(e) => setNewFolderContent(e.target.value)}
                onKeyDown={(e) => handleKeyDown(e)}

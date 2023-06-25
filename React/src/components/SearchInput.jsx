@@ -7,7 +7,8 @@ const SearchInput = (props) => {
 
     return (
         <div className="section_search">
-            <input onChange={(e) => setValue(e.target.value)}
+            <input maxLength="40"
+                   onChange={(e) => setValue(e.target.value)}
                    value={value}
                    onBlur={() => props.onSearch(value)}
                    onKeyDown={(e) => {

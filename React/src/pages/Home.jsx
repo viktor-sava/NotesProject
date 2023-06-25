@@ -55,8 +55,6 @@ const Home = () => {
             const filterByStatus = notes.filter((note) => note?.status?.includes(value));
             const filter = [...filterByContent, ...filterByDate, ...filterByStatus].filter((value, index, array) => array.indexOf(value) === index);
             setListNotes(filter.length === 0 ? null : filter);
-            console.log(filterByContent);
-            console.log(filterByDate);
         }
 
     }
