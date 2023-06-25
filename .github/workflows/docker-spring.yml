@@ -1,4 +1,4 @@
-name: Create and publish a Docker image
+name: Create and publish a Docker image for spring
 
 on:
   push:
@@ -11,7 +11,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  build-and-push-image:
+  build-and-push-react-spring:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,14 +30,14 @@ jobs:
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
-        uses: docker/metadata-action
+        uses: docker/metadata-action@
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
 
       - name: Build and push Docker image
-        uses: docker/build-push-action
+        uses: docker/build-push-action@
         with:
-          context: .
+          context: Spring
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
