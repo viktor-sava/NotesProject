@@ -28,7 +28,7 @@ const Login = () => {
     return (
         <div className="container-form">
             <h1>Login</h1>
-            <p className='error-paragraph'>{errors}</p>
+            <p className='error-paragraph'>{errors.split(";").join("\n")}</p>
             <form className='form' onSubmit={handleSubmit}>
                 <input className='input' placeholder="Email" type="text" value={email}
                        onChange={(e) => setEmail(e.target.value)}/>

@@ -38,6 +38,7 @@
 }
 
 .error-paragraph {
+    white-space: pre-line;
     text-align: start;
     font-size: 24px;
     color: rgba(251, 0, 0, 0.78);

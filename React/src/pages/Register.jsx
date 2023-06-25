@@ -30,7 +30,7 @@ const Register = () => {
     return (
         <div className="container-form">
             <h1>Register</h1>
-            <p className='error-paragraph'>{errors}</p>
+            <p className='error-paragraph'>{errors.split(";").join("\n")}</p>
             <form className='form' onSubmit={handleSubmit}>
                 <input className='input' placeholder="First name" type="text" value={firstName}
                        onChange={(e) => setFirstName(e.target.value)}/>
