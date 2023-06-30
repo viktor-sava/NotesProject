@@ -285,6 +285,7 @@
 .input_block_date {
     position: absolute;
     right: 5px;
+    user-select: none;
     bottom: 25px;
 }
 
