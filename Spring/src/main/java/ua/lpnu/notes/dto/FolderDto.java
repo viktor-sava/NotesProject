@@ -6,5 +6,5 @@ import org.hibernate.validator.constraints.Length;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public record FolderDto(Long id,
-                        @Length(min = 5, max = 30, message = "Folder name length should be between 5 and 30") String name) {
+                        @Length(min = 1, max = 30, message = "Folder name length should be between 5 and 30") String name) {
 }
