@@ -47,7 +47,12 @@
 
 .header_text {
     padding: 12px;
+    user-select: none;
     margin: 0 auto;
+}
+
+.header_text:hover {
+    cursor: pointer;
 }
 
 .note_img {
@@ -274,6 +279,13 @@
 
 .input_block {
     padding: 25px;
+    position: relative;
+}
+
+.input_block_date {
+    position: absolute;
+    right: 5px;
+    bottom: 25px;
 }
 
 .space {

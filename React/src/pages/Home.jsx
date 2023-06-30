@@ -18,6 +18,7 @@ import ListNotes from "../components/ListNotes.jsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useLocalStorage} from "../hooks/HookLocalStorage.js";
 import TagInput from "../components/TagInput.jsx";
+import moment from "moment";
 
 const Home = () => {
 
@@ -51,9 +52,10 @@ const Home = () => {
             setListNotes([]);
         } else {
             const filterByContent = notes.filter((note) => note?.content?.includes(value));
-            const filterByDate = notes.filter((note) => note?.created_at?.includes(value.replaceAll("\\.", "-")));
+            const filterByDate = notes.filter((note) => moment(note?.created_at)?.format('D.MM.YYYY')?.includes(value));
             const filterByStatus = notes.filter((note) => note?.status?.includes(value));
-            const filter = [...filterByContent, ...filterByDate, ...filterByStatus].filter((value, index, array) => array.indexOf(value) === index);
+            const filterByTag = notes.filter((note) => note?.tags?.map((tag) => tag.value)?.includes(value));
+            const filter = [...filterByContent, ...filterByDate, ...filterByStatus, ...filterByTag].filter((value, index, array) => array.indexOf(value) === index);
             setListNotes(filter.length === 0 ? null : filter);
         }
 
@@ -109,7 +111,8 @@ const Home = () => {
                 <div className="block_left" style={(isPanelHidden) ? {display: "none"} : {display: "block"}}>
                     <SearchInput onSearch={(value) => search(value)}/>
                     <div className="notes_block-left">
-                        <ListNotes notes={listNotes === null ? [] : (listNotes.length === 0 ? notes : listNotes)}
+                        <ListNotes selectedNote={selectedNote}
+                                   notes={listNotes === null ? [] : (listNotes.length === 0 ? notes : listNotes)}
                                    onFolderCreate={(note_id, folder) => dispatch(fetchCreateFolderNoteData({
                                        note_id: note_id,
                                        name: folder.name
@@ -134,8 +137,13 @@ const Home = () => {
                                               status: selectedNote?.status
                                           }))}
                                           content={selectedNote?.content}/>
+                        <p style={(isNaN(paramId) ? {display: "none"} : {display: "block"})}
+                           className="input_block_date">{moment(selectedNote?.created_at)?.format('D.MM.YYYY')}</p>
                     </div>
-                    <div className="tag_section" style={(isPanelHidden) ? {width: "1410px"} : {}}>
+                    <div className="tag_section" style={{
+                        width: (isPanelHidden) ? "1410px" : "1010px",
+                        display: (isNaN(paramId) ? "none" : "flex")
+                    }}>
                         <TagInput onAdd={(tag) => {
                             dispatch(fetchAddTagData({note_id: paramId, value: tag}));
                         }}/>

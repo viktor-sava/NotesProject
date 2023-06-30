@@ -61,7 +61,8 @@ const ListNotes = (props) => {
                                           note={note}
                                           onDragStart={setCurrentNote}
                                           onDelete={props.onNoteDelete}
-                                          onClick={props.onNoteClick}/>
+                                          onClick={props.onNoteClick}
+                                          isSelected={note.id === props.selectedNote?.id}/>
                                 );
                             })}
                         </Folder>
@@ -75,7 +76,8 @@ const ListNotes = (props) => {
                       note={note}
                       onDelete={props.onNoteDelete}
                       onDragStart={setCurrentNote}
-                      onClick={props.onNoteClick}/>
+                      onClick={props.onNoteClick}
+                      isSelected={note.id === props.selectedNote?.id}/>
             );
         })}
         <input value={newFolderContent}
@@ -97,11 +99,12 @@ const ListNotes = (props) => {
 
 ListNotes.propTypes = {
     notes: PropTypes.array.isRequired,
+    selectedNote: PropTypes.object,
     onFolderChange: PropTypes.func.isRequired,
     onFolderCreate: PropTypes.func.isRequired,
     onFolderDelete: PropTypes.func.isRequired,
     onNoteDelete: PropTypes.func.isRequired,
-    onNoteClick: PropTypes.func.isRequired
+    onNoteClick: PropTypes.func.isRequired,
 }
 
 export default ListNotes;
